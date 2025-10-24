@@ -1,0 +1,81 @@
+Skip to main content
+Google Classroom
+Classroom
+DT: Web Development with JavaScript
+2025B
+Home
+Calendar
+Enrolled
+To-do
+D
+DT: Web Development with JavaScript
+2025B
+Archived classes
+Settings
+Hands-on 2
+Hands-on 2
+Hands-on 2
+Coach Manager
+•
+Sep 28 (Edited Sep 28)
+100 points
+Due Sep 28, 11:59 PM
+Upload the HTML file
+Class comments
+Your work
+Turned in
+
+index.html
+HTML
+Private comments
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web Development with javascript - Celcius to Fahrenheit Converter</title>
+
+<style>
+	body {
+		text-align: center;
+		font-family: 'Roboto', 'Arial';
+		color: antiquewhite;
+		background-color: grey;
+
+	}
+	form{
+		border-radius: 20px;
+		width: 80%;
+		margin: auto;
+		padding: 10px 5px 20px 5px;
+		background: linear-gradient(to right, red, aqua, red);
+		background-size: 200%;
+		background-position: right;
+		transition:background-position .8s linear;
+	}
+</style>
+
+<script>
+ var changeInput = function (val){
+ 	var fahrenheit = (9/5*val) + 32;
+ 	var input = document.getElementById("myFahrenheit");
+ 	input.value = fahrenheit;
+ }
+</script>
+
+
+</head>
+
+<body>
+	<h1><b> <span class="celciusColor">Celcius</span> to <span class="fahrenheitColor">Fahrenheit</span> Converter</b></h1>
+	<h3><i> By Mariel Temblor </i></h3>
+	<br>
+
+	<form>
+		<h2> Please Input the temperature in Celcius : </h2>
+		<input type="number" name="celcius" id="myCelcius" onchange="changeInput(this.value);"> = </input>
+		<input type="number" name="fahrenheit" id="myFahrenheit" placeholder="fahrenheit" disabled> Fahrenheit </input>
+
+	</form>
+</body>
+</html>
+index.html
+Displaying index.html.

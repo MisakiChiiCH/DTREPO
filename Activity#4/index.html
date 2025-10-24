@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Student Record Manager by Mariel Temblor</title>
+	<style>
+		body {
+    font-family: Arial, sans-serif;
+    background-color: #141414;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+}
+
+h1 {
+    text-align: center;
+    color: #37b1e2;
+}
+
+#student-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#student-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#save-button {
+    background-color: #3675ab;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#save-button:hover {
+    background-color: #0056b3;
+}
+
+#student-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#student-table th, #student-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#student-table th {
+    background-color: #f2f2f2;
+}
+	</style>
+</head>
+<body>
+	<div class="container">
+        <h1>Student Record Manager</h1>
+        
+        <form id="student-form">
+            <input type="text" id="fname" placeholder="First Name" required>
+            <input type="text" id="mname" placeholder="Middle Name" required>
+            <input type="text" id="lname" placeholder="Last Name" required>
+            <input type="number" id="phone" placeholder="Student Phone Number" required>
+            <input type="text" id="address" placeholder="Student Address" required>
+            <button type="submit" id="save-button">Save</button>
+        </form>
+
+        <table id="student-table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Student records will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+    	// A simple array to store our student records
+let students = [];
+
+// Get references to HTML elements
+const studentForm = document.getElementById('student-form');
+const studentTableBody = document.querySelector('#student-table tbody');
+
+// Function to handle form submission
+const handleFormSubmit = (event) => {
+    // Prevent the default form submission behavior (page reload)
+    event.preventDefault();
+
+    // Get input values
+    const fnameInput = document.getElementById('fname').value;
+    const mnameInput = document.getElementById('mname').value;
+    const lnameInput = document.getElementById('lname').value;
+    const phoneInput = document.getElementById('phone').value;
+    const addressInput = document.getElementById('address').value;
+
+    // Create a new student object
+    const newStudent = {
+        fname: fnameInput,
+        mname: mnameInput,
+        lname: lnameInput,
+        phone: phoneInput,
+        address: addressInput,
+    };
+
+    // Add the new student to the array
+    students.push(newStudent);
+
+    // Clear the form inputs
+    studentForm.reset();
+
+    // Re-render the table to display the new student
+    renderTable();
+};
+
+// Function to render the students in the table
+const renderTable = () => {
+    // Clear the existing table body
+    studentTableBody.innerHTML = '';
+
+    // Loop through the students array and add a new row for each student
+    students.forEach(student => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${student.fname}</td>
+            <td>${student.mname}</td>
+            <td>${student.lname}</td>
+            <td>${student.phone}</td>
+            <td>${student.address}</td>
+        `;
+        studentTableBody.appendChild(row);
+    });
+};
+
+// Add an event listener to the form to call the submission handler
+studentForm.addEventListener('submit', handleFormSubmit);
+
+// Initial render of the table (it will be empty at first)
+renderTable();
+    </script>
+</body>
+</html>
