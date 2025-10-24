@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker by Mariel Temblor</title>
+    <style>
+    	body {
+    		font-family: sans-serif;
+    		display: flex;
+    		justify-content: center;
+    		align-items: center;
+    		min-height: 100vh;
+    		background-color: #f0f0f0;
+    		margin: 0;
+		}
+
+		.container {
+    		background-color: #1f1f1f;
+    		padding: 30px;
+    		border-radius: 8px;
+    		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    		text-align: center;
+    		width: 400px;
+		}
+
+		#colorPicker {
+    		width: 100px;
+    		height: 50px;
+    		border: none;
+    		padding: 0;
+    		cursor: pointer;
+    		margin-top: 10px;
+		}
+
+		#colorDisplay {
+    		width: 100px;
+    		height: 100px;
+    		margin: 20px auto;
+    		border: 1px solid #ccc;
+    		border-radius: 4px;
+
+		}
+
+		p {
+    		font-size: 1.1em;
+    		color: #91ccec;
+		}
+
+		span#hexCode {
+    		font-weight: bold;
+    		color: #e0f7ff;
+		}
+		h1 , label {
+			color: #91ccec;
+		}
+		
+		.imageChange {
+
+    		padding: 30px;
+    		text-align: center;
+    		width: 400px;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Color Picker</h1>
+        <label for="colorPicker">Select a color:</label>
+        <input type="color" id="colorPicker" value="#ff0000">
+        <div id="colorDisplay" style="background-color: #ff0000;"></div>
+        <p>Selected Hex Code: <span id="hexCode">#ff0000</span></p>
+    </div>
+<br/>
+    <div class="imageChange">
+    	<button onclick="neko1()">Neko 1</button>
+    	<button onclick="neko2()">Neko 2</button>
+    	<button onclick="neko3()">Neko 3</button>
+
+    	<br/>
+
+    	<img id="imageid" src="image/neko1.png" height="300px" width="300px">
+
+
+    </div>
+    <script>
+    	const colorPicker = document.getElementById('colorPicker');
+		const colorDisplay = document.getElementById('colorDisplay');
+		const hexCodeSpan = document.getElementById('hexCode');
+
+		colorPicker.addEventListener('input', (event) => {
+    	const selectedColor = event.target.value;
+    	colorDisplay.style.backgroundColor = selectedColor;
+    	hexCodeSpan.textContent = selectedColor; //c. changes text inside a <div>
+    	document.body.style.backgroundColor = selectedColor; //a. Click to change background color
+    	hexCodeSpan.style.color = selectedColor; //b. changes the color of a paragraph
+		});
+
+		var myImage=document.querySelector("#imageid");
+
+		function neko1(){
+			myImage.src = "image/neko1.png"
+		}
+		function neko2(){
+			myImage.src = "image/neko2.png"
+		}
+		function neko3(){
+			myImage.src = "image/neko3.png"
+		}
+
+    </script>
+</body>
+</html>
