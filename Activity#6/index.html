@@ -1,81 +1,271 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Picker by Mariel Temblor</title>
-    <style>
-    	body {
-    		font-family: sans-serif;
-    		display: flex;
-    		justify-content: center;
-    		align-items: center;
-    		min-height: 100vh;
-    		background-color: #f0f0f0;
-    		margin: 0;
-		}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grade Calculator by Mariel Temblor</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
 
-		.container {
-    		background-color: #1f1f1f;
-    		padding: 30px;
-    		border-radius: 8px;
-    		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    		text-align: center;
-    		width: 400px;
-		}
+     <style>
+        :root {
+            --htmlFontSize: 100%;
+  
+            --baseColor: #606468;
+            --iconFill: var(--baseColor);
+            --anchorColor: #eee;
+  
+            --bodyBackgroundColor: #2c3338;
+            --bodyColor: var(--baseColor);
+            --bodyFontFamily: "Open Sans";
+            --bodyFontFamilyFallback: sans-serif;
+            --bodyFontSize: 0.875rem;
+            --bodyFontWeight: 400;
+            --bodyLineHeight: 1.5;
+  
+            --formGap: 0.875rem;
+            --inputBorderRadus: 0.25rem;
+            --inputColor: #eee;
+            --inputBackgroundColor: #3b4148;
+            --inputHoverBackgroundColor: #434a52;
+            --inputLabelBackgroundColor: #363b41;
+            --btnSubmitBackgroundColor: #00FFFF;
+            --btnSubmitColor: #4070F4;
+            --btnSubmitHoverBackgroundColor: #0E2431;
+}
 
-		#colorPicker {
-    		width: 100px;
-    		height: 50px;
-    		border: none;
-    		padding: 0;
-    		cursor: pointer;
-    		margin-top: 10px;
-		}
+        * {
+            box-sizing: inherit;
+        }
 
-		#colorDisplay {
-    		width: 100px;
-    		height: 100px;
-    		margin: 20px auto;
-    		border: 1px solid #ccc;
-    		border-radius: 4px;
+        html {
+            box-sizing: border-box;
+            font-size: var(--htmlFontSize);
+        }
 
-		}
+        body {
+            background-color: var(--bodyBackgroundColor);
+            color: var(--bodyColor);
+            font-family: var(--bodyFontFamily), var(--bodyFontFamilyFallback);
+            font-size: var(--bodyFontSize);
+            font-weight: var(--bodyFontWeight);
+            line-height: var(--bodyLineHeight);
+            margin: 0;
+            /*   min-block-size: 100vh; */
+        } 
 
-		p {
-    		font-size: 1.1em;
-    		color: #91ccec;
-		}
+        h1, p {
+            margin-block: 1rem;
+            text-align: center;
+            color: var(--btnSubmitColor);
+        }
 
-		span#hexCode {
-    		font-weight: bold;
-    		color: #e0f7ff;
-		}
-		h1 , label {
-			color: #91ccec;
-		}
-    </style>
+        input {
+            background-image: none;
+            border: 0;
+            color: inherit;
+            font: inherit;
+            margin: 0;
+            outline: 0;
+            padding: 0;
+            transition: background-color 0.3s;
+        }
+
+        .container {
+            margin: 3rem auto 3rem auto;
+        }
+
+        .form {
+            display: grid;
+            gap: var(--formGap);
+            margin: 1.5rem 0 1.5rem 0;;
+        }
+
+        .form button[type="submit"] {
+            cursor: pointer;
+            inline-size: 100%;
+        }
+
+        .fom input[type="number"] {
+            inline-size: 100%;
+        }
+
+        .form__field {
+            display: flex;
+        }
+
+        .form__input {
+            flex: 1;
+        }
+
+        .grade {
+            color: var(--inputColor);
+        }
+
+        .grade label,
+        .grade button,
+        .grade input[type="number"],
+        .grade input[type="submit"] {
+            border-radius: var(--inputBorderRadus);
+            padding: 1rem;
+        }
+
+        .grade label {
+            background-color: var(--inputLabelBackgroundColor);
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+            padding-inline: 1.25rem;
+        }
+
+        .grade input[type="number"],
+        .grade input[type="text"] {
+            background-color: var(--inputBackgroundColor);
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        .grade input[type="number"]:focus,
+        .grade input[type="number"]:hover,
+        .grade input[type="text"]:focus,
+        .grade input[type="text"]:hover {
+            background-color: var(--inputHoverBackgroundColor);
+        }
+
+        .grade button[type="submit"] {
+            background-color: var(--btnSubmitBackgroundColor);
+            color: var(--btnSubmitColor);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .grade button[type="submit"]:focus,
+        .grade button[type="submit"]:hover {
+            background-color: var(--btnSubmitHoverBackgroundColor);
+        }
+
+        .grade button[type="submit"] {
+            border: none;
+        }
+
+        .text--center {
+            text-align: center;
+        }
+
+        .align {
+            display: grid;
+            place-items: center;
+        }
+
+        .grid {
+            inline-size: 90%;
+            margin-inline: auto;
+            max-inline-size: 20rem;
+        }
+
+        .hidden {
+            border: 0;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        .icons {
+            display: none;
+        }
+
+        .icon {
+            block-size: 1em;
+            display: inline-block;
+            fill: var(--iconFill);
+            inline-size: 1em;
+            vertical-align: middle;
+        }
+
+     </style>
+
 </head>
 <body>
     <div class="container">
-        <h1>Color Picker</h1>
-        <label for="colorPicker">Select a color:</label>
-        <input type="color" id="colorPicker" value="#ff0000">
-        <div id="colorDisplay" style="background-color: #ff0000;"></div>
-        <p>Selected Hex Code: <span id="hexCode">#ff0000</span></p>
+      <h1>Grade Average Calculator</h1>
+      <div class="grid align">
+      <form id="grade-form" method="POST" class="form grade">
+        <div class="form__field">
+          <label for="projectScore">
+            <span class="hidden">Project Score</span></label>
+          <input type="number" id="projectScore" name="projectScore" class="form__input" placeholder="Project Score" required min=0 >
+        </div>
+        <div class="form__field">
+          <label for="quizScore">
+            <span class="hidden">Quiz Score</span></label>
+          <input type="number" id="quizScore" name="quizScore" class="form__input" placeholder="Quiz Score" required min=0 >
+        </div>
+        <div class="form__field">
+          <label for="midtermScore">
+            <span class="hidden">Midterm Score</span></label>
+          <input type="number" id="midtermScore" name="midtermScore" class="form__input" placeholder="Midterm Score" required min=0 >
+        </div>
+        <div class="form__field">
+          <label for="finalsScore">
+           <span class="hidden">Finals Score</span></label>
+          <input type="number" id="finalsScore" name="finalsScore" class="form__input" placeholder="Finals Score" required min=0 >
+        </div>
+        <div class="form__field">
+          <label for="activitiesScore">
+           <span class="hidden">Activities Score</span></label>
+          <input type="number" id="activitiesScore" name="activitiesScore" class="form__input" placeholder="Activities Score" required min=0 >
+        </div>
+        <button type="submit">Calculate</button>
+      </form>
+      </div>
+      <div id="result"></div>
     </div>
-    <script>
-    	const colorPicker = document.getElementById('colorPicker');
-		const colorDisplay = document.getElementById('colorDisplay');
-		const hexCodeSpan = document.getElementById('hexCode');
 
-		colorPicker.addEventListener('input', (event) => {
-    	const selectedColor = event.target.value;
-    	colorDisplay.style.backgroundColor = selectedColor;
-    	hexCodeSpan.textContent = selectedColor;
-    	document.body.style.backgroundColor = selectedColor;
-		});
+    <script>
+        const form = document.getElementById("grade-form");
+
+        form.addEventListener("submit", function(event){
+            event.preventDefault()
+  
+            let projectScore = document.getElementById("projectScore").value;
+            let quizScore = document.getElementById("quizScore").value;
+            let midtermScore = document.getElementById("midtermScore").value;
+            let finalsScore = document.getElementById("finalsScore").value;
+            let activitiesScore = document.getElementById("activitiesScore").value;
+  
+            let totalGrade = parseFloat(projectScore) + parseFloat(quizScore) + parseFloat(midtermScore) + parseFloat(finalsScore) + parseFloat(activitiesScore);
+  
+            if (totalGrade >= 75) {
+                isApproved();
+            } 
+            if (totalGrade <= 74) {
+                isFailed();
+            }
+ 
+    function isApproved() {
+      const divResult = document.getElementById("result");
+      //divResult.insertAdjacentHTML('afterbegin', `<p>Your average grade is: <strong>${totalGrade}</strong></p><p>You passed! <i class="fas fa-check-circle"></i></p>`);
+      alert(`Your average grade is: ${totalGrade}. You passed!`);
+      form.reset();
+      
+    }
+  
+    function isFailed() {
+      const divResult = document.getElementById("result");
+      //divResult.insertAdjacentHTML('afterbegin', `<p>Your average grade is: <strong>${totalGrade}</strong></p><p>You failed! <i class="fas fa-bomb"></i></p>`);
+      alert(`Your average grade is: ${totalGrade}. You failed!`);
+      form.reset();
+      
+    }
+
+
+});
 
     </script>
+
+  </body>
+</html>
 </body>
 </html>

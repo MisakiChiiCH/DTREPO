@@ -3,188 +3,169 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>The Scientic Calculator by Mariel Temblor</title>
-
+	<title>Student Record Manager by Mariel Temblor</title>
 	<style>
-		body{
-			padding: 0;
-			margin: 0;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			min-height: 100vh;
-			background: #141414;
-		}
-		.container{
-			width: 45%;
-			height: 45vh;
-			padding: 10px;
-			border-radius: 8px;
-			box-shadow: 12px 12px 20px #b3e1f1,
-						-12px -12px 20px #e0f7ff;
-		}
-		.display #screen{
-			width: 94%;
-			height: 70px;
-			margin: 10px;
-			font-size: 35px;
-			outline: none;
-			border: none;
-			text-align: right;
-			padding-right: .5em;
-			background: #91ccec;
-			border-radius: 6px;
-			box-shadow: inset 8px 8px 8px #b3e1f1,
-						inset -8px -8px 8px #b3e1f1;
-		}
-		.btns{
-			width: 100%;
-			margin-top: 0.7em;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: column;
+		body {
+    font-family: Arial, sans-serif;
+    background-color: #141414;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
 
-		}
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+}
 
-		.btns .row button{
-			width: 100px;
-			height: 50px;
-			font-size: 16px;
-			border: none;
-			outline: none;
-			margin: 5px;
-			border-radius: 4px;
-			box-sizing: 5px 5px 8px #3675ab,
-						-5px -5px 8px #e0f7ff;
+h1 {
+    text-align: center;
+    color: #37b1e2;
+}
 
+#student-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-		}
+#student-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#save-button {
+    background-color: #3675ab;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#save-button:hover {
+    background-color: #0056b3;
+}
+
+#student-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#student-table th, #student-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#student-table th {
+    background-color: #f2f2f2;
+}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="display">
-			<input id="screen" type="text" placeholder="0">
-		</div>
+        <h1>Student Record Manager</h1>
+        
+        <form id="student-form">
+            <input type="text" id="fname" placeholder="First Name" required>
+            <input type="text" id="mname" placeholder="Middle Name" required>
+            <input type="text" id="lname" placeholder="Last Name" required>
+            <input type="number" id="phone" placeholder="Student Phone Number" required>
+            <input type="text" id="address" placeholder="Student Address" required>
+            <button type="submit" id="save-button">Save</button>
+        </form>
 
-		<div class="btns">
-			<div class="row">
-				<button onclick="backspace()">CE</button>
-				<button onclick="fact() ">x!</button>
-				<button class="btn">(</button>
-				<button class="btn">)</button>
-				<button class="btn">%</button>
-				<button onclick="screen.value=''">AC</button>
-			</div>
+        <table id="student-table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Student records will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
 
-			<div class="row">
-				<button onclick="sin()">sin</button>
-				<button onclick="pi()">π</button>
-				<button class="btn">7</button>
-				<button class="btn">8</button>
-				<button class="btn">9</button>
-				<button class="btn">÷</button>
-			</div>
+    <script>
+    	// A simple array to store our student records
+let students = [];
 
-			<div class="row">
-				<button onclick="cos()">cos</button>
-				<button onclick="log()">log</button>
-				<button class="btn">4</button>
-				<button class="btn">5</button>
-				<button class="btn">6</button>
-				<button class="btn">×</button>
-			</div>
+// Get references to HTML elements
+const studentForm = document.getElementById('student-form');
+const studentTableBody = document.querySelector('#student-table tbody');
 
-			<div class="row">
-				<button onclick="tan()">tan</button>
-				<button onclick="sqrt()">√</button>
-				<button class="btn">1</button>
-				<button class="btn">2</button>
-				<button class="btn">3</button>
-				<button class="btn">-</button>
-			</div>
+// Function to handle form submission
+const handleFormSubmit = (event) => {
+    // Prevent the default form submission behavior (page reload)
+    event.preventDefault();
 
-			<div class="row">
-				<button onclick="e()">e</button>
-				<button class="btn">x<span style="position: relative; bottom: .4em; <span style="position: relative; bottom: .4em; right: ">y</span></button>
-				<button class="btn">0</button>
-				<button class="btn">.</button>
-				<button onclick="screen.value=eval(screen.value)">=</button>
-				<button class="btn">+</button>
-			</div>
-			
-		</div>
-	</div>
+    // Get input values
+    const fnameInput = document.getElementById('fname').value;
+    const mnameInput = document.getElementById('mname').value;
+    const lnameInput = document.getElementById('lname').value;
+    const phoneInput = document.getElementById('phone').value;
+    const addressInput = document.getElementById('address').value;
+
+    // Create a new student object
+    const newStudent = {
+        fname: fnameInput,
+        mname: mnameInput,
+        lname: lnameInput,
+        phone: phoneInput,
+        address: addressInput,
+    };
+
+    // Add the new student to the array
+    students.push(newStudent);
+
+    // Clear the form inputs
+    studentForm.reset();
+
+    // Re-render the table to display the new student
+    renderTable();
+};
+
+// Function to render the students in the table
+const renderTable = () => {
+    // Clear the existing table body
+    studentTableBody.innerHTML = '';
+
+    // Loop through the students array and add a new row for each student
+    students.forEach(student => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${student.fname}</td>
+            <td>${student.mname}</td>
+            <td>${student.lname}</td>
+            <td>${student.phone}</td>
+            <td>${student.address}</td>
+        `;
+        studentTableBody.appendChild(row);
+    });
+};
+
+// Add an event listener to the form to call the submission handler
+studentForm.addEventListener('submit', handleFormSubmit);
+
+// Initial render of the table (it will be empty at first)
+renderTable();
+    </script>
 </body>
-<script>
-	var screen=document.querySelector('#screen');
-	var btn=document.querySelectorAll('.btn');
-
-	for(item of btn){
-		item.addEventListener('click',(e)=>{
-			btntext=e.target.innerText;
-			if(btntext=='×'){
-				btntext='*';
-			}
-
-			if(btntext=='÷'){
-				btntext='/';
-			}
-			screen.value+=btntext;
-		});
-	}
-
-	function sin(){
-		screen.value=Math.sin(Math.PI * (screen.value/180));
-
-	}
-
-	function cos(){
-		screen.value=Math.cos(screen.value * Math.PI/180);
-	}
-
-	function tan(){
-		screen.value=Math.tan(screen.value * Math.PI/180);
-	}
-
-	function pow(){
-		screen.value=Math.pow(screen.value,2);
-	}
-
-	function sqrt(){
-		screen.value=Math.sqrt(screen.value,2);
-	}
-
-	function log(){
-		screen.value=Math.log10(screen.value);
-	}
-
-	function pi(){
-		screen.value=3.14159265359;
-	}
-
-	function e(){
-		screen.value=2.71828182846;
-	}
-
-	function fact(){
-		var i, num, f;
-		f=1
-		num=screen.value;
-		for(i=1; i<=num; i++){
-			f=f*i;
-		}
-
-		i=i-1;
-
-		screen.value=f;
-	}
-
-	function backspace(){
-		screen.value=screen.value.substr(0,screen.value.length-1);
-	}
-
-
-</script>
 </html>

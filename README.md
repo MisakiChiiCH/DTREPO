@@ -1,25 +1,10 @@
-DTRepo
-|_______Activity #1 Personal Portfolio
-		|_______index.html
-		|_______js
-				|__.js file
-		|_______css
-				|__.css file
-		|_______image
-				|chii yor.css file
-
-|_______Activity #2 Temperature Converter
-		|_______index.html
-
-|_______Activity #3 Guess the Number
-		|_______index.html
-
-|_______Activity #4 Student Record Manager
-		|_______index.html
-
-|_______Activity #5 Scientific Calculator
-		|_______index.html
-|_______Activity #6 Color Picker
-		|_______index.html
-|_______Activity #7 Character Counter
-		|_______index.html
+Hands-On 1: Styled GitHub Portfolio Page (GitHub Link)
+Hands-On 2: Temperature Converter (GitHub Link)
+Hands-On 3: Grade Calculator (GitHub Link)
+Hands-On 4: Number Guessing Game (GitHub Link)
+Hands-On 5: Student Record Manager (GitHub Link)
+Hands-On 6: Arrow Function (Code Snippet)
+Hands-On 7: Destructuring (Code Snippet)
+Hands-On 8: Calculator using Counter Function with Closures (GitHub Link)
+Hands-On 9: Color Picker (GitHub Link)
+Hands-On 10: Character Counter Application (GitHub Link)
