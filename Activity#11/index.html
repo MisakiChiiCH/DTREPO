@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dynamic To-Do List by Mariel Temblor</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
+
+body {
+    background-color: #222222;
+    min-height: 70vh;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: hsl(198, 1%, 29%);
+    font-family: 'Gochi Hand', cursive;
+    text-align: center;
+    font-size: 130%;  
+}
+
+@media only screen and (min-width: 500px) {
+  body {
+    min-height: 100vh;
+  }
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+    max-width: 500px;
+    min-width: 250px;
+    background: #f1f5f8;
+    background-image: radial-gradient(#bfc0c1 7.2%, transparent 0);
+    background-size: 25px 25px;
+    border-radius: 20px;
+    box-shadow: 4px 3px 7px 2px #00000040;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.headingTitle {
+  transform: rotate(2deg);
+  padding: 0.2rem 1.2rem;
+  border-radius: 20% 5% 20% 5%/5% 20% 25% 20%;
+  background-color: hsla(166, 100%, 50%, 0.7);
+  font-size: 2rem;
+}
+@media only screen and (min-width: 500px) {
+  .heading__title{
+    font-size: 3rem;
+  }
+}
+
+
+.input-area {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#taskInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#addTaskButton {
+    background-color: #37b1e2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+#addTaskButton:hover {
+    background-color: #0056b3;
+}
+
+#taskList {
+    list-style: none;
+    padding: 0;
+}
+
+#taskList li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #eee;
+}
+
+#taskList li.completed {
+    text-decoration: line-through;
+    color: #623740;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+	</style>
+</head>
+<body>
+	<section class="container">
+    <div class = "heading">
+      <h1 class = "headingTitle">My To-Do List</h1>
+    </div>
+    <label class="label" for="todo">~ Today I need to ~</label>
+        <div class="input-area">
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <button id="addTaskButton">Add Task</button>
+        </div>
+        <ul id="taskList">
+            <!-- Tasks will be added here dynamically -->
+        </ul>
+  </section>
+
+  <script>
+  	document.addEventListener('DOMContentLoaded', () => {
+    const taskInput = document.getElementById('taskInput');
+    const addTaskButton = document.getElementById('addTaskButton');
+    const taskList = document.getElementById('taskList');
+
+    // Load tasks from local storage on page load
+    loadTasks();
+
+    addTaskButton.addEventListener('click', addTask);
+    taskList.addEventListener('click', handleTaskActions);
+
+    function addTask() {
+        const taskText = taskInput.value.trim();
+        if (taskText === '') {
+            alert('Please enter a task!');
+            console.log("No task added. Please enter a task");
+            return;
+        }
+
+        createTaskElement(taskText, false); // false for not completed
+        saveTasks();
+        taskInput.value = '';
+    }
+
+    function createTaskElement(text, isCompleted) {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <span>${text}</span>
+            <button class="delete-btn">Delete</button>
+        `;
+        if (isCompleted) {
+            listItem.classList.add('completed');
+        }
+        taskList.appendChild(listItem);
+    }
+
+    function handleTaskActions(event) {
+        if (event.target.tagName === 'SPAN') {
+            event.target.closest('li').classList.toggle('completed');
+            saveTasks();
+        } else if (event.target.classList.contains('delete-btn')) {
+            event.target.closest('li').remove();
+            saveTasks();
+        }
+    }
+
+    function saveTasks() {
+        const tasks = [];
+        taskList.querySelectorAll('li').forEach(item => {
+            tasks.push({
+                text: item.querySelector('span').textContent,
+                completed: item.classList.contains('completed')
+            });
+        });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(task => {
+            createTaskElement(task.text, task.completed);
+        });
+    }
+});
+  </script>
+</body>
+</html>
