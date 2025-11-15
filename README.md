@@ -12,7 +12,7 @@ Hands-On 11: Dynamic To-Do List
 Hands-On 12: Debugging "Buggy Calculator"
 Hands-On 13: Filter and Sort a Product List
 Hands-On 14: Joke or Trivia Generator
-Hands-On 15: Persistent To-Do List
+Hands-On 15: Persistent To-Do List with Storage
 
 
 ~~~~~~~~~~~
