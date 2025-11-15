@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Joke or Trivia Generator by Mariel Temblor</title>
+	<style>
+		body {
+		    font-family: Arial, sans-serif;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    min-height: 100vh;
+		    margin: 0;
+		    background-color: #222222;
+		}
+
+		.container {
+		    background-color: #fff;
+		    padding: 30px;
+		    border-radius: 10px;
+		    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+		    text-align: center;
+		    width: 90%;
+		    max-width: 500px;
+		}
+
+		h1 {
+		    color: #333;
+		    margin-bottom: 20px;
+		}
+
+		.content-box {
+		    margin-bottom: 20px;
+		    min-height: 100px;
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+		}
+
+		#content-text {
+		    font-size: 1.2em;
+		    color: #555;
+		    margin: 0;
+		}
+
+		#answer-text {
+		    font-size: 1em;
+		    color: #007bff;
+		    margin-top: 10px;
+		    font-weight: bold;
+		}
+
+		.hidden {
+		    display: none;
+		}
+
+		button {
+		    background-color: #007bff;
+		    color: #fff;
+		    border: none;
+		    padding: 10px 20px;
+		    border-radius: 5px;
+		    font-size: 1em;
+		    cursor: pointer;
+		    transition: background-color 0.3s;
+		}
+
+		button:hover {
+		    background-color: #0056b3;
+		}
+
+
+	</style>
+</head>
+<body>
+	<div class="container">
+        <h1>Joke or Trivia Generator Pinoy Edition</h1>
+        <div class="content-box">
+            <p id="content-text">Click the button to get a random joke or trivia!</p>
+            <p id="answer-text" class="hidden"></p>
+        </div>
+        <button id="generate-btn">Generate New Item</button>
+    </div>
+
+    <script>
+		document.addEventListener('DOMContentLoaded', () => {
+	    const contentText = document.getElementById('content-text');
+	    const answerText = document.getElementById('answer-text');
+	    const generateBtn = document.getElementById('generate-btn');
+
+	    const items = [
+	        // Jokes
+	        { type: 'joke', question: 'Bakit bawal umutot sa Apple store?', answer: 'Kasi... walang Windows.' },
+	        { type: 'joke', question: 'Ano\'ng sabi ng baby rubber band sa mommy rubber band?', answer: 'Eh di GO MA!' },
+	        { type: 'joke', question: 'Ano\'ng insekto ang walangg gilagid?', answer: 'LANGGAM (Walang gum)' },
+	        { type: 'joke', question: 'Ano\'ng sabi ng baboy nung nakita niya \'yung baka?', answer: 'Meat tayo!' },
+	        { type: 'joke', question: 'Ano\'ng tawag sa Pinoy na nilibing ng buhay?', answer: 'A libing thing... *croo croo*' },
+	        { type: 'joke', question: 'Sinong fish ang pumapalit \'pag wala ang Boss?', answer: 'Eh \'di Ang o-FISH-er in charge!' },
+	        { type: 'joke', question: 'Ba\'t daw bawal mag-jacuzzi ang mga kalbo? ', answer: 'Kasi magmumukha silang squidballs.' },
+	        { type: 'joke', question: 'Bakit may K ang dark imbes na C?', answer: 'Eh kasi you can\'t C in the dark.' },
+	        { type: 'joke', question: 'Knock knock! Who\'s there? Hiphop. Hiphop who? ', answer: 'HIPHOPatawad mo... minahal kita agad.' },
+	        { type: 'joke', question: 'Ano\'ng pangalan ng lider ng bibe na nagsabi ng kwak-kwak?', answer: 'Justin... Justin Bibe!' },
+	        // Trivia
+	        { type: 'trivia', question: 'What does the title of José Rizal\'s book Noli Me Tangere translate to?', answer: 'Touch Me Not' },
+	        { type: 'trivia', question: 'Which city is known as the "Summer Capital of the Philippines"?', answer: 'Baguio' },
+	        { type: 'trivia', question: 'What do Filipino children traditionally do during the New Year\'s Eve to get taller?', answer: 'Jump' },
+	        { type: 'trivia', question: 'What term refers to a subculture in the Philippines known for using capital letters and symbols in their unique style of writing and texting?', answer: 'Jejemon' },
+	        { type: 'trivia', question: 'During what month does the Christmas season unofficialy start in the Philippines?', answer: 'September' },
+	        { type: 'trivia', question: 'What is the traditional Filipino dance that involves dancers skillfully stepping between two bamboo poles that are clapped together?', answer: 'Tinikling' },
+	        { type: 'trivia', question: 'What should you do if you\'re lost, according to a common Filipino superstition?', answer: 'Turning your shirt inside out' },
+	        { type: 'trivia', question: 'What is the traditional genre of Filipino love songs that Francisco Santiago is known for contributing to?', answer: 'Kundiman' },
+	        { type: 'trivia', question: 'Who is the Filipino singer known as "Asia\'s Songbird"?', answer: 'Regine Velasquez' },
+	        { type: 'trivia', question: 'Which famous Philippine volcano is known for its perfect cone shape?', answer: 'Mayon' }
+	    ];
+
+	    function generateNewItem() {
+	        // Hide the previous answer
+	        answerText.classList.add('hidden');
+	        answerText.textContent = '';
+
+	        // Get a random item from the array
+	        const randomIndex = Math.floor(Math.random() * items.length);
+	        const selectedItem = items[randomIndex];
+
+	        // Display the question
+	        contentText.textContent = selectedItem.question;
+	        
+	        // After a delay, display the answer (for a joke's punchline or a trivia answer)
+	        setTimeout(() => {
+	            answerText.textContent = selectedItem.answer;
+	            answerText.classList.remove('hidden');
+	        }, 3000); // Display answer after 3 seconds
+	    }
+
+	    // Add event listener to the button
+	    generateBtn.addEventListener('click', generateNewItem);
+
+	    // Generate an initial item on page load
+	    generateNewItem();
+	});
+
+    </script>
+</body>
+</html>
